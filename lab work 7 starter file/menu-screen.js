@@ -8,7 +8,7 @@ class SelectionScreen {
 
       this.themes = ['candy', 'charlie brown', 'computers', 'dance', 'donuts', 'hello kitty', 'flowers', 'nature', 'turtles', 'space'];
 
-      // Manually defined song data
+
       this.songsData = {
           cranes: {
               songUrl: "https://yayinternet.github.io/hw4-music/songs/solange-cranes-kaytranada.mp3",
@@ -58,7 +58,6 @@ class SelectionScreen {
       // Clear any existing options (if necessary)
       this.songSelector.innerHTML = '';
 
-      // Iterate through the song object to create options
       for (const key in this.songsData) {
           if (this.songsData.hasOwnProperty(key)) {
               const song = this.songsData[key];
