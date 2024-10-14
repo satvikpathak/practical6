@@ -1,18 +1,15 @@
-// app.js
-
-class App {
+class MusicApp {
   constructor() {
-      this.menuScreen = new MenuScreen(this);
+      this.selectionScreen = new SelectionScreen(this);
+      this.trackScreen = null;
   }
 
   startMusicScreen(selectedSong, theme) {
-      // Logic to switch to the music screen
-      console.log('Starting music screen with:', selectedSong, theme);
-      // You will need to create the MusicScreen and pass these values
+      this.trackScreen = new TrackScreen(this, selectedSong, theme);
   }
 }
 
-// Initialize the app
+// Instantiate the app when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new App();
+  const app = new MusicApp();
 });

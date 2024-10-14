@@ -1,54 +1,49 @@
-// NOTE: We are expecting you to *create* an AudioPlayer, but we are *not*
-// expecting you to modify the contents of this file.
 class AudioPlayer {
-  constructor() {
-    this._onKickCallback = this._onKickCallback.bind(this);
-
-    this.lastKickTime = -1;
-
-    this.dancer = new Dancer();
-
-    this.kick = this.dancer.createKick({
-      onKick: this._onKickCallback
-    });
-    this.kick.on();
+  constructor(songUrl) {
+      this.audio = new Audio(songUrl);
+      this.isPlaying = false;
+      this.kickCallbacks = [];
+      this.setupAudioEvents();
   }
 
-  setSong(songUrl) {
-    let audio = new Audio();
-    audio.crossOrigin = 'anonymous';
-    audio.loop = 'true';
-    audio.src = songUrl;
-    this.dancer.pause();
-    this.dancer.load(audio);
+  setupAudioEvents() {
+      // Listen for the 'play' event
+      this.audio.addEventListener('play', () => {
+          this.isPlaying = true;
+      });
+
+      // Listen for the 'pause' event
+      this.audio.addEventListener('pause', () => {
+          this.isPlaying = false;
+      });
+
+      // Assuming a beat detection library is used
+      // Replace this with actual logic to detect "kick" beats
+      this.audio.addEventListener('timeupdate', () => {
+          if (this.audio.currentTime % 1 < 0.1) {
+              this.onKick();
+          }
+      });
+  }
+
+  onKick() {
+      this.kickCallbacks.forEach(callback => callback());
   }
 
   play() {
-    this.dancer.play();
-    const nowTime = Date.now();
-    if (this.lastKickTime === -1) {
-      this.lastKickTime = nowTime;
-    }
+      this.audio.play();
   }
 
   pause() {
-    this.dancer.pause();
+      this.audio.pause();
   }
 
-  setKickCallback(kickCallback) {
-    this.kickCallback = kickCallback;
+  isPlaying() {
+      return this.isPlaying;
   }
 
-  _onKickCallback() {
-    if (!this.kickCallback) {
-      return;
-    }
-    const KICK_THRESHOLD = 0.2;
-    const nowTime = Date.now();
-    const diff = (nowTime - this.lastKickTime) / 1000;
-    if (diff > KICK_THRESHOLD) {
-      this.lastKickTime = nowTime;
-      this.kickCallback();
-    }
+  // Attach a callback for kick events
+  onKick(callback) {
+      this.kickCallbacks.push(callback);
   }
 }

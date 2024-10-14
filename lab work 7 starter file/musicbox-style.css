@@ -1,76 +1,33 @@
-/* musicbox-style.css */
-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f3f3f3;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  #menu {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  #music-screen {
-    display: none; /* Initially hidden */
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  #gif-display {
-    margin-top: 20px;
-  }
-  
-  .inactive {
-    display: none;
-  }
-  
-  #error {
-    color: red;
-    margin-top: 10px;
-    display: none; /* Initially hidden */
-  }
-  
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  #music {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  .gif-display {
-    flex: 1; /* This allows the gif display to take up remaining space */
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-  
-  #control-bar {
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.7); /* Optional: add a background color */
-  }
-  
-  #play-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  #play-button img {
-    width: 60px;
-    height: 60px;
-  }
-  
+/* Music screen styles */
+#music {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gif-display {
+  margin: 20px 0;
+}
+
+.gif {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+
+#control-bar {
+  margin: 10px 0;
+}
+
+#play-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#play-button img {
+  width: 50px;
+  height: 50px;
+}

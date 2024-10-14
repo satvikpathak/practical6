@@ -1,6 +1,4 @@
-// menu-screen.js
-
-class MenuScreen {
+class SelectionScreen {
   constructor(app) {
       this.app = app;  // Pass the app instance if needed
       this.songSelector = document.getElementById('song-selector');
@@ -9,6 +7,40 @@ class MenuScreen {
       this.error = document.getElementById('error');
 
       this.themes = ['candy', 'charlie brown', 'computers', 'dance', 'donuts', 'hello kitty', 'flowers', 'nature', 'turtles', 'space'];
+
+      // Manually defined song data
+      this.songsData = {
+          cranes: {
+              songUrl: "https://yayinternet.github.io/hw4-music/songs/solange-cranes-kaytranada.mp3",
+              title: "Cranes in the Sky [KAYTRANADA Remix]",
+              artist: "Solange"
+          },
+          timeless: {
+              songUrl: "https://yayinternet.github.io/hw4-music/songs/james-blake-timeless.mp3",
+              title: "Timeless",
+              artist: "James Blake"
+          },
+          knock: {
+              songUrl: "https://yayinternet.github.io/hw4-music/songs/knockknock.mp4",
+              title: "Twice",
+              artist: "Knock Knock"
+          },
+          deep: {
+              songUrl: "https://yayinternet.github.io/hw4-music/songs/janet-jackson-go-deep.mp3",
+              title: "Go Deep [Alesia Remix]",
+              artist: "Janet Jackson"
+          },
+          discretion: {
+              songUrl: "https://yayinternet.github.io/hw4-music/songs/mitis-innocent-discretion.mp3",
+              title: "Innocent Discretion",
+              artist: "MitiS"
+          },
+          spear: {
+              songUrl: "https://yayinternet.github.io/hw4-music/songs/toby-fox-spear-of-justice.mp3",
+              title: "Spear of Justice (ALMOST NO KICKS)",
+              artist: "Toby Fox"
+          }
+      };
 
       // Populate songs and theme input
       this.populateSongSelector();
@@ -21,24 +53,20 @@ class MenuScreen {
       });
   }
 
-  // Fetch songs.json and populate the select element
-  async populateSongSelector() {
-      try {
-          const response = await fetch('./CS402_Web_Technologies_files/songs.json');
-          const songs = await response.json();
+  // Populate the select element with songs from the manually defined songsData
+  populateSongSelector() {
+      // Clear any existing options (if necessary)
+      this.songSelector.innerHTML = '';
 
-          // Clear any existing options (if necessary)
-          this.songSelector.innerHTML = '';
-
-          // Add an option for each song
-          songs.forEach(song => {
+      // Iterate through the song object to create options
+      for (const key in this.songsData) {
+          if (this.songsData.hasOwnProperty(key)) {
+              const song = this.songsData[key];
               const option = document.createElement('option');
-              option.value = song.url;
-              option.textContent = song.title;
+              option.value = song.songUrl; // The URL of the song
+              option.textContent = `${song.title} by ${song.artist}`; // Title and artist of the song
               this.songSelector.appendChild(option);
-          });
-      } catch (error) {
-          console.error('Error fetching song list:', error);
+          }
       }
   }
 
@@ -65,7 +93,7 @@ class MenuScreen {
       console.log('Selected Song:', selectedSong);
       console.log('Theme:', theme);
 
-      // You can call any app logic here to switch to the music screen
+      // Call app logic to switch to the music screen
       this.app.startMusicScreen(selectedSong, theme);
   }
 }
